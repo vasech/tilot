@@ -1,0 +1,135 @@
+<div id="logsContent" class="hero-unit">
+<div id="currentTimeString">Current time: </div><div id="currentTime"></div>
+<div class="clearFloat"></div>
+
+
+
+<div id="inputArea">
+
+
+</div>
+
+<div id="logShower">
+<% @logs.each do |log| %>
+<div class="logRow">
+    <div class="showLog showName"><%= log.name %></div>
+    <div class="showLog showTicket"><%= log.ticket %></div>
+    <div class="showLog showEnd"><%= log.end %></div> <!--duration-->
+    <div style="display:none"><%= link_to 'Edit', edit_log_path(log) %></div>
+    <div><a class="linkLog" id="<%= log.ticket %>">link</a></div>
+    <div class="showLog showDescription"><%= log.description %></div>
+    
+    <div class="clearFloat"></div>
+</div>
+<% end %>
+</div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+    var now = new Date();
+    var timeVar = now.getHours() + ':' + now.getMinutes();
+    document.getElementById('currentTime').innerHTML = timeVar;
+    var durTime = 0;
+//https://centralway.atlassian.net/browse/CWA-323
+    var ddd = $('a').first().attr('href');
+    /*if(window.location.href.lastIndexOf("/logs/46")){
+        console.log("awesome");
+    }*/
+    /*
+    var total = $('a').length;
+    $('a').each(function(index) {
+        if (index === total - 1) {
+            console.log(this);
+        }
+    });
+    */
+    /*
+    var total2 = $('.showEnd').length;
+    $('.showEnd').each(function() {
+        var durText = $('.showEnd').last().html();
+        if (durText != "") {
+
+            console.log("further");
+        }else{
+            console.log(durText);
+        }
+    });
+*/
+if($('.showEnd').first().html() === ""){
+    $('#inputArea').append('<div id="updateForm"><form action="' + ddd + '"><div id="updateTime" class="updateLogInput">&nbsp</div><div class="updateLogInput"><input type="text" id="getSeconds" name="seconds" content="ticket"><input type="submit" class="btn btn-primary btn-large" value="stop"></div></form><div class="clearFloat"></div></div>');
+}else{
+    $('#inputArea').append('<div id="createForm"><form action="/logs/new" ><div class="createLogInput"><input type="text" id="inputName" name="name" style="max-width: 145px !important; margin-right: 5px; height: 34px" value="Name" content="name"></div><div class="createLogInput"><input id="inputTicket" type="text" value="Ticket" name="ticket" style="max-width: 145px !important; height: 34px; margin-right:5px;" content="ticket"></div><div class="createLogInput"><input type="submit" value="Submit" class="btn btn-primary btn-large"></div><div class="createLogInput"><form method="post" action=""><textarea style="width: 275px; height: 90px; margin: 10px 0px 0px 60px;" name="description" cols="30" rows="5"></textarea></div></form><div class="clearFloat"><div></div>');
+   
+}
+if($('#updateForm').length === 1){
+    var showSeconds = 0;
+            var minutes = 0;
+        var hours = 0;
+    var durTimeInterval = window.setInterval(function(){
+        durTime += 1;
+        
+        showSeconds += 1;
+        if(showSeconds === 60){
+            minutes += 1;
+            showSeconds = 0;
+        }
+        if(minutes === 60){
+            hours += 1;
+            minutes = 0;
+        }
+        $('#updateTime').html('h' + hours + ' m' + minutes + ' s' + showSeconds);
+        document.getElementById('getSeconds').value = durTime;
+    }, 1000);
+}
+
+        /*
+        var xm = duration%60;
+        var ym = (duration-xm)/60;
+        var xh = ym%60;
+        var yh = ()
+        console.log(xm, ym);
+        durationText = xh + "h " + ym + "m " + xm + "s";*/
+        
+    
+
+    var ddd = $('a').first().attr('href');
+    console.log(ddd);
+
+    var dt = new Date();
+    var oStart = dt.getTime();
+
+function transferNormalTimeToHH(){
+     $('.showEnd').each(function() {
+        var duration = $(this).text();
+        var durationText = "";
+        h = parseInt( duration / 3600 ) % 24;
+        m = parseInt( duration / 60 ) % 60;
+        s = duration % 60;
+        durationText = h + "h " + m + "m " + s + "s";
+        $(this).html(durationText);
+    });
+    };
+    transferNormalTimeToHH();
+
+    $(".linkLog").click(function() {
+        var vv = $(this).attr('id');
+        var jiraLink = "https://centralway.atlassian.net/browse/";
+        var newLink = "";
+        newLink = jiraLink + vv;
+        console.log(newLink);
+        var win=window.open(newLink, '_blank');
+        win.focus();
+    });
+    $("#inputName").focus(function(){
+        $("#inputName").val("");
+    });
+    $("#inputTicket").focus(function(){
+        $("#inputTicket").val("");
+    });
+
+});
+
+
+</script>

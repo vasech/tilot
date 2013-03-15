@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  day: 2013-03-15 00:20:52
+  start: 1
+  end: 1
+  duration: 1
+  name: MyString
+  ticket: MyString
+  description: MyString
+  user_id: 1
+
+two:
+  day: 2013-03-15 00:20:52
+  start: 1
+  end: 1
+  duration: 1
+  name: MyString
+  ticket: MyString
+  description: MyString
+  user_id: 1

@@ -1,0 +1,100 @@
+<div style="background-color:black;width:100%; height:100%; padding-top:1000px;"></div>
+
+
+
+<%= form_for(@log) do |f| %>
+  <% if @log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@log.errors.count, "error") %> prohibited this log from being saved:</h2>
+
+      <ul>
+      <% @log.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :day %><br />
+    <%= f.text_field :day %>
+  </div>
+  <div class="field">
+    <%= f.label :start %><br />
+    <%= f.text_field :start %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br />
+    <%= f.text_field :end %>
+  </div>
+  <div class="field">
+    <%= f.label :duration %><br />
+    <%= f.text_field :duration %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :ticket %><br />
+    <%= f.text_field :ticket %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div>
+    <%=  %>
+  </div>
+  <div class="actions">
+    <%= f.submit :id => 'createSubmitInput' %>
+  </div>
+
+
+<% end %>
+
+
+<%= link_to 'Back', logs_path %>
+
+  <script>
+$(document).ready(function(){
+
+  var query = window.location.search.substring(1);
+  var s = query.split("&");
+  console.log(query);
+
+  var s2 = new Array();
+  for(i=0;i<s.length;i++){
+  	var sc = s[i];
+  	s2.push(sc.split("="));
+
+  }
+  
+ 	var dt = new Date();
+ 	var month = dt.getMonth();
+	var oDay = dt.getFullYear() + "/" + (month+=1) + "/" + dt.getDate();
+	var oStart = dt.getTime();
+	var ooName = s2[0][1];
+	var oName = ooName.replace("+"," ");
+	var ooTicket = s2[1][1];
+	var oTicket = ooTicket.replace("+"," ");
+	var ooDescription = s2[2][1];
+	var oDescription = ooDescription.replace("+"," ");
+
+  	document.getElementById('log_day').value = oDay;
+  	document.getElementById('log_start').value = oStart;
+  	document.getElementById('log_name').value = oName;
+  	document.getElementById('log_ticket').value = oTicket;
+  	document.getElementById('log_description').value = oDescription;
+
+	
+
+  $('#createSubmitInput').trigger('click');
+
+});
+
+</script>

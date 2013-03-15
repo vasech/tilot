@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Day:</b>
+  <%= @log.day %>
+</p>
+
+<p>
+  <b>Start:</b>
+  <%= @log.start %>
+</p>
+
+<p>
+  <b>End:</b>
+  <%= @log.end %>
+</p>
+
+<p>
+  <b>Duration:</b>
+  <%= @log.duration %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @log.name %>
+</p>
+
+<p>
+  <b>Ticket:</b>
+  <%= @log.ticket %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @log.description %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @log.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_log_path(@log) %> |
+<%= link_to 'Back', logs_path %>
+
+<script>
+$(document).ready(function(){
+  var url = '/logs';
+  window.location.href = url;
+});
+
+</script>
+
